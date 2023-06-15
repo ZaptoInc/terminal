@@ -51,24 +51,24 @@ function enterKey(e) {
 
     var parsedCommand = command.split(" ")
 
-        if (cmd.commands[parsedCommand[0]]) {
-            cmd.commands[parsedCommand[0]].execute(parsedCommand, terminal)
-        } else if (parsedCommand[0] == "help") {
-            parsedCommand.shift()
-            if (parsedCommand.length > 0) {
-                if (cmd.commands[parsedCommand[0]]) {
-                    cmd.commands[parsedCommand[0]].infos(terminal)
-                }
-            } else {
-                for (const [key, value] of Object.entries(cmd.commands)) {
-                    value.simpleInfos(terminal)
-                }
+    if (cmd.commands[parsedCommand[0]]) {
+        cmd.commands[parsedCommand[0]].execute(parsedCommand, terminal)
+    } else if (parsedCommand[0] == "help") {
+        parsedCommand.shift()
+        if (parsedCommand.length > 0) {
+            if (cmd.commands[parsedCommand[0]]) {
+                cmd.commands[parsedCommand[0]].infos(terminal)
             }
-        } else if (command == ""){
-            
         } else {
-            terminal.addLog("Unknown command..")
+            for (const [key, value] of Object.entries(cmd.commands)) {
+                value.simpleInfos(terminal)
+            }
         }
+    } else if (command == "") {
+
+    } else {
+        terminal.addLog("Unknown command..")
+    }
 
     // // send command to server
     // if (command.startsWith("echo ")) {
@@ -108,17 +108,39 @@ function downKey(e) {
 }
 
 $('body').keydown(function (e) {
-
-    if (e.keyCode == 13) {
-        enterKey(e)
-    } else if (e.keyCode == 38) {
-        upKey(e)
-    } else if (e.keyCode == 40) {
-        downKey(e)
-    } else {
-        terminal.currentCommand = terminal.currentCommand + String.fromCharCode(e.which).toLowerCase()
+    console.log(e.key, e.keyCode)
+    console.log(e.ctrlKey)
+    console.log(e.shiftKey)
+    if (e.keyCode == 8) { //backspace
+        terminal.currentCommand = terminal.currentCommand.slice(0, -1)
         terminal.updateCurrentCommand()
     }
+    else if (e.keyCode == 13) { //tab
+
+    }
+    else if (e.keyCode == 13) { //enter
+        enterKey(e)
+    } else if (e.keyCode == 16) { //shift
+
+    } else if (e.keyCode == 17) { //ctrl
+
+    } else if (e.keyCode == 20) { //caps lock   
+
+    } else if (e.keyCode == 38) { //uparrow
+        upKey(e)
+    } else if (e.keyCode == 40) { //downarrow
+        downKey(e)
+    } else {
+        if (!e.ctrlKey && !e.shiftKey) { //if not shift or ctrl pressed
+            terminal.currentCommand = terminal.currentCommand + e.key
+            terminal.updateCurrentCommand()
+        }        
+    }
 });
+
+$('body').bind("paste", function (e) {
+    terminal.currentCommand = terminal.currentCommand + e.originalEvent.clipboardData.getData('text')
+            terminal.updateCurrentCommand()
+})
 
 terminal.updateCurrentCommand()
