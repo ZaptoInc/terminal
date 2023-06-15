@@ -1,0 +1,59 @@
+:root {
+    --background: #0f0f0f;
+    --username: #109710;
+    --domain: #109710;
+    --path: #4e5eeb;
+    --prefix: #ffffff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: monospace;
+    color: white;
+    font-size: 1.1rem;
+}
+
+body {
+    background: var(--background);
+    display: flex;
+    flex-direction: column;
+}
+
+#logs {
+    position: relative;
+    min-height: calc(100vh - 2rem);
+}
+
+.log {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.current {
+    width: 100%;
+}
+
+.current input {
+    background: var(--background);
+    border: none;
+    overflow: hidden;
+    width: 50%;
+    outline: none;
+}
+
+.username {
+    color: var(--username);
+}
+
+.domain {
+    color: var(--domain);
+}
+
+.path {
+    color: var(--path);
+}
+
+.prefix {
+    color: var(--prefix);
+}

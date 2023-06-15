@@ -1,0 +1,22 @@
+<body id="bod" onkeypress="keypres(event)">
+
+    <h1 id="txt">hello</h1>    
+        
+</body>
+
+<script>
+    function keypres(event){
+
+        if(event.charCode=='32'){
+
+            document.getElementById("txt").innerHTML = event.key;
+
+        }
+        else{
+
+            document.getElementById("txt").innerHTML += event.key;
+
+        }
+    
+    }
+</script>

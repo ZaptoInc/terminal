@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Console</title>
+</head>
+
+<body>
+    <div class="content">
+        <div id="logs">
+        </div>
+        <div class="current">
+            <span>
+                <label id="current-cmd"></label><!-- <input type="text" id="command"> -->
+            </span>
+            
+        </div>
+    </div>
+
+</body>
+
+<template id="console"><span class="username">{{username}}</span>@<span class="domain">{{domain}}</span>:<span
+        class="path">{{path}}</span><span class="prefix">{{prefix}}</span>{{command}}</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.1/mustache.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="index.js" type="module"></script>
+
+</html>
