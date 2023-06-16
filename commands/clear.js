@@ -3,6 +3,7 @@ export const command = {
     execute : async function(args, terminal){
         args.shift()
         $("#logs").html("")
+        terminal.addLog($('.current span label').html() + 'clear')
         terminal.addLog("Console cleared !")
     },
     infos : async function(terminal){ 
