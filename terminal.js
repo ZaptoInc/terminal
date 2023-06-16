@@ -10,12 +10,13 @@ export const terminalManager = {
         token: "",
         superUser: false
     },
+
     addLog: function (log) {
         $("#logs").append('<p class="log">' + log + '<br></p>')
         // Scroll to the bottom
         window.scrollTo(0, document.body.scrollHeight);
-
     },
+
     updateCurrentCommand: function() {
         var obj = {
             username : this.user.name,
@@ -30,6 +31,7 @@ export const terminalManager = {
         console.log(render)
         $("#current-cmd").html(render)
     },
+
     getPrefix: function() {
         if (this.user.superUser) {
             return "#\u00A0"

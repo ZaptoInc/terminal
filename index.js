@@ -44,8 +44,8 @@ cmd.addCommand("./commands/clear.js")
 // }
 
 function enterKey(e) {
-    var command = terminal.currentCommand
-    terminal.addLog($('#current-cmd').html())
+    var command = $("#command").val()
+    terminal.addLog($('.current span label').html() + $('#command').val())
 
     terminal.commandHistory.push(command)
 
@@ -70,77 +70,17 @@ function enterKey(e) {
         terminal.addLog("Unknown command..")
     }
 
-    // // send command to server
-    // if (command.startsWith("echo ")) {
-    //     addLog(command.replace("echo ", ""))
-    // } else if (command == "exit") {
-    //     close() // close tab
-    // } else if (command == "clear") {
-    //     $("#logs").html("")
-    //     addLog("Console cleared !")
-    // } else {
-    //     addLog("Unknown command..")
-    // }
-    terminal.currentCommand = ""
-    terminal.updateCurrentCommand()
-}
-
-function upKey(e) {
-    if (terminal.selectedCommand == -1) {
-        terminal.typedCommand = terminal.currentCommand
-    }
-    if (terminal.selectedCommand < commandHistory.length - 1) {
-        terminal.selectedCommand += 1
-    }
-    e.target.value = commandHistory[terminal.selectedCommand]
-}
-
-function downKey(e) {
-    if (terminal.selectedCommand > -1) {
-        terminal.selectedCommand -= 1
-    }
-    if (terminal.selectedCommand == -1) {
-        terminal.currentCommand = terminal.typedCommand
-    } else {
-        e.target.value = commandHistory[terminal.selectedCommand]
-    }
-
+    $('#command').val("")
 }
 
 $('body').keydown(function (e) {
-    console.log(e.key, e.keyCode)
-    console.log(e.ctrlKey)
-    console.log(e.shiftKey)
-    if (e.keyCode == 8) { //backspace
-        terminal.currentCommand = terminal.currentCommand.slice(0, -1)
-        terminal.updateCurrentCommand()
-    }
-    else if (e.keyCode == 13) { //tab
-
-    }
-    else if (e.keyCode == 13) { //enter
+    if (e.keyCode == 13) { //enter
         enterKey(e)
-    } else if (e.keyCode == 16) { //shift
-
-    } else if (e.keyCode == 17) { //ctrl
-
-    } else if (e.keyCode == 20) { //caps lock   
-
-    } else if (e.keyCode == 38) { //uparrow
-        upKey(e)
-    } else if (e.keyCode == 40) { //downarrow
-        downKey(e)
-    } else {
-        if (!e.ctrlKey && !e.shiftKey) { //if not shift or ctrl pressed
-            terminal.currentCommand = terminal.currentCommand + e.key
-            terminal.updateCurrentCommand()
-        }        
-    }
+    } 
 });
 
-$('body').bind("paste", function (e) {
-    terminal.currentCommand = terminal.currentCommand + e.originalEvent.clipboardData.getData('text')
-            terminal.updateCurrentCommand()
+$('body').click(function() {
+    $("#command").focus()
 })
 
 terminal.updateCurrentCommand()
