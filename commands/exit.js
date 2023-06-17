@@ -1,7 +1,7 @@
 export const command = {
     command : "exit",
     execute : async function(args, terminal){
-        args.shift()
+        args.shift() //removes the command from the args
         close()
     },
     infos : async function(terminal){ 

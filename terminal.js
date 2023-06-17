@@ -12,7 +12,7 @@ export const terminalManager = {
     },
 
     addLog: function (log) {
-        $("#logs").append('<p class="log">' + log + '<br></p>')
+        $("#logs").append('<p class="log">' + log + '</p>')
         // Scroll to the bottom
         window.scrollTo(0, document.body.scrollHeight);
     },
