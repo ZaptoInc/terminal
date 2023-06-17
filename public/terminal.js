@@ -7,9 +7,11 @@ export const terminalManager = {
     domain: document.location.host,
     user: {
         name: "anon",
-        token: "",
+        token: null,
         superUser: false
     },
+
+    session: null,
 
     socket: null,
 
@@ -54,7 +56,7 @@ export const terminalManager = {
     initializeSocket: function (terminal) {
         this.socket = new WebSocket(`ws://${document.location.host}`)
         this.socket.addEventListener("open", function(event) {
-            terminal.sendToSocket("initialized", {test:true})
+            terminal.sendToSocket("initialized", {session : terminal.session, token : terminal.user.token})
         });
         this.socket.addEventListener("close", function(event) {
             setTimeout(function() { terminal.initializeSocket(terminal) }, 5000);
@@ -65,8 +67,12 @@ export const terminalManager = {
                 terminal.socketEvents[obj.command](obj)
             }
         });
-        this.setSocketEvent("initialized", function(test){
-            console.log(test)
+        this.setSocketEvent("initialized", function(obj){
+            terminal.session = obj.data.session
+        })
+        this.setSocketEvent("user_update", function(obj){
+            terminal.user = obj.data
+            terminal.updateCurrentCommand()
         })
     },
 
