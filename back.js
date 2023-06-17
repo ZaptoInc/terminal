@@ -1,5 +1,9 @@
 const express = require('express')
-const ws = require('ws');
+
+const {wsManager} = require('./ws.js');
+
+const crypto = require('crypto')
+
 const app = express()
 const port = 3000
 // prod/dev arg
@@ -14,15 +18,29 @@ app.get('/env', (req, res) => {
 
 // websocket server
 
-const wsServer = new ws.Server({ noServer: true });
-wsServer.on('connection', socket => {
-    console.log("[WS] new client connected");
-    socket.on('message', (data, isBinary) => {
-        var message = isBinary ? data : data.toString()
-        console.log(message)
-        socket.send(message);
-    });
-});
+wsManager.initialize()
+
+wsManager.setSocketEvent("initialized", function(obj, socket){
+    if(!obj.data.session) {
+        wsManager.sendToSocket(socket, "message", "motd.txt")
+    }
+
+    var initialized = {
+        session : crypto.createHash('md5').update(Date.now().toString()).digest("hex")
+    }
+    wsManager.sendToSocket(socket, "initialized", initialized)
+    var current_user = {
+        name: "anon",
+        token: null,
+        superUser: false
+    }
+    if (!obj.data.token) {       
+        wsManager.sendToSocket(socket, "user_update", current_user)
+    } else {
+        
+    }
+})
+
 
 // live reload on dev
 if (env == 'dev') {
