@@ -4,10 +4,17 @@ const {wsManager} = require('./ws.js');
 
 const crypto = require('crypto')
 
-const app = express()
-const port = 3000
 // prod/dev arg
 var env = process.env.NODE_ENV || 'dev';
+
+var allConfigs = require('./config.json')
+
+var config = {
+    ...allConfigs.common,
+    ...allConfigs[env]
+}
+
+const app = express()
 
 // serve files in public/
 app.use(express.static('public'))
@@ -37,7 +44,7 @@ wsManager.setSocketEvent("initialized", function(obj, socket){
     if (!obj.data.token) {       
         wsManager.sendToSocket(socket, "user_update", current_user)
     } else {
-        
+
     }
 })
 
@@ -47,8 +54,8 @@ if (env == 'dev') {
 }
 
 // start express.js server
-const server = app.listen(port, () => {
-    console.log(`Env ${env} listening on port ${port}`)
+const server = app.listen(config.port, () => {
+    console.log(`Env ${env} listening on port ${config.port}`)
 })
 
 server.on('upgrade', (request, socket, head) => {
