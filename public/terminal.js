@@ -32,9 +32,7 @@ export const terminalManager = {
             command: this.currentCommand
         }
         var torender = $("#console").html()
-        console.log(torender)
         var render = Mustache.render(torender, obj);
-        console.log(render)
         $("#current-cmd").html(render)
     },
 
