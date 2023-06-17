@@ -14,6 +14,13 @@ export const command = {
         });
     },
 
+    load : function(terminal) {
+        const that = this
+        terminal.setSocketEvent("message", function(obj){
+            that.execute(`${obj.command} ${obj.data}`.split(" "), terminal)     
+        })
+    },
+
     infos : async function(terminal){ 
         terminal.addLog(this.command + " [filename] :") 
         terminal.addLog("Displays content of a given file.") 

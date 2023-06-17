@@ -5,6 +5,13 @@ export const command = {
         terminal.addLog(args.join(" "))
     },
 
+    load : function(terminal) {
+        const that = this
+        terminal.setSocketEvent("echo", function(obj){
+            that.execute(`${obj.command} ${obj.data}`.split(" "), terminal)     
+        })
+    },
+
     infos : async function(terminal){ 
         terminal.addLog(this.command + " [arg ...] :") 
         terminal.addLog("Retourne les arguments dans l'historique du terminal.") 
@@ -14,3 +21,4 @@ export const command = {
         terminal.addLog(this.command + " [arg ...]") 
     }
 }
+
