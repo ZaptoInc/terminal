@@ -1,0 +1,22 @@
+{
+  "name": "terminal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start":"node back.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZaptoInc/terminal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZaptoInc/terminal/issues"
+  },
+  "homepage": "https://github.com/ZaptoInc/terminal#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
