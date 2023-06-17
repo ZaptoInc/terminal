@@ -60,3 +60,4 @@ $.get('messages/motd.txt', function(data) {
 }, 'text')
 
 terminal.updateCurrentCommand() //Displays the terminal input text {user}@{domain}:{path}{prefix}
+terminal.initialize()
