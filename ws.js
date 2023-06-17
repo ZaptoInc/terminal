@@ -4,9 +4,10 @@ const wsManager = {
     socketEvents: {},
     initialize: function () {
         var manager = this
-        wsServer = new ws.Server({ noServer: true });
+        wsServer = new ws.Server({ noServer: true })
         wsServer.on('connection', socket => {
-            console.log("[WS] new client connected");
+            console.log("[WS] new client connected")
+            // new websocket event manager
             socket.on('message', (data, isBinary) => {
                 var message = isBinary ? data : data.toString()
                 var obj = JSON.parse(message)
