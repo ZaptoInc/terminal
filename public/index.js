@@ -5,10 +5,10 @@ var cmd = commandManager
 
 var terminal = terminalManager
 
-cmd.addCommand("./commands/exit.js")
-cmd.addCommand("./commands/echo.js")
-cmd.addCommand("./commands/clear.js")
-cmd.addCommand("./commands/message.js")
+cmd.addCommand("./commands/exit.js", terminal)
+cmd.addCommand("./commands/echo.js", terminal)
+cmd.addCommand("./commands/clear.js", terminal)
+cmd.addCommand("./commands/message.js", terminal)
 
 function enterKey(e) {
     var command = $("#command").val() //get command
