@@ -4,16 +4,14 @@ const {wsManager} = require('./ws.js');
 
 const crypto = require('crypto')
 
-// prod/dev arg
-var env = process.env.NODE_ENV || 'dev';
+const {userManager} = require('./user.js');
 
-var allConfigs = require('./config.json')
+const {config, env} = require('./config.js');
 
-// adds the envconfig to the 'common' config
-var config = { 
-    ...allConfigs.common,
-    ...allConfigs[env]
-}
+var token = userManager.signToken({"test":false})
+console.log(token)
+var decoded = userManager.verifyToken(token);
+console.log(decoded)
 
 const app = express()
 

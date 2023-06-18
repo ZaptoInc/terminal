@@ -1,0 +1,6 @@
+{
+    "common":{
+        "port":6969,
+        "jwtKey":"jwtKey"
+    }
+}
