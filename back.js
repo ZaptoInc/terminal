@@ -10,7 +10,7 @@ const {config, env} = require('./config.js') // config manager
 
 var loki = require('lokijs') // database
 
-var db = new loki(config.database) //database object
+var db = new loki(`${config.database}.json`) //database object
 
 userManager.setDatabase(db)
 
@@ -43,11 +43,7 @@ wsManager.setSocketEvent("initialized", function(obj, socket){
     wsManager.sendToSocket(socket, "initialized", initialized)
 
     // default user object
-    var current_user = {
-        name: "anon",
-        token: null,
-        superUser: false
-    }
+    var current_user = userManager.defaultUser
     // check if a token exists
     if (obj.data.token) {       
        token_user = userManager.verifyToken(token)
@@ -61,6 +57,19 @@ wsManager.setSocketEvent("initialized", function(obj, socket){
     }
     // send the current user
     wsManager.sendToSocket(socket, "user_update", current_user)
+})
+
+wsManager.setSocketEvent("test", function(obj, socket){
+    if (obj.data.length > 0) {
+        userManager.createUser({name : obj.data[0]})
+    }
+})
+
+wsManager.setSocketEvent("test2", function(obj, socket){
+    if (obj.data.length > 0) {
+        test = userManager.getUserFromName(obj.data[0])     
+        wsManager.sendToSocket(socket, "user_update", test)
+    }
 })
 
 // start express.js server

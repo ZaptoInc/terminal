@@ -9,6 +9,9 @@ cmd.addCommand("./commands/exit.js", terminal)
 cmd.addCommand("./commands/echo.js", terminal)
 cmd.addCommand("./commands/clear.js", terminal)
 cmd.addCommand("./commands/message.js", terminal)
+cmd.addCommand("./commands/test.js", terminal)
+cmd.addCommand("./commands/test2.js", terminal)
+
 
 function enterKey(e) {
     var command = $("#command").val() //get command
