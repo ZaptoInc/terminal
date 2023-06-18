@@ -1,6 +1,7 @@
 {
     "common":{
         "port":6969,
-        "jwtKey":"jwtKey"
+        "jwtKey":"jwtKey",
+        "database":"TerminalCommon"
     }
 }

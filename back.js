@@ -1,17 +1,23 @@
-const express = require('express')
+const express = require('express') // web server
 
-const {wsManager} = require('./ws.js');
+const {wsManager} = require('./ws.js') //websocket manager
 
-const crypto = require('crypto')
+const crypto = require('crypto') // cryptographics (for md5)
 
-const {userManager} = require('./user.js');
+const {userManager} = require('./user.js') // user manager
 
-const {config, env} = require('./config.js');
+const {config, env} = require('./config.js') // config manager
 
-var token = userManager.signToken({"test":false})
-console.log(token)
-var decoded = userManager.verifyToken(token);
-console.log(decoded)
+var loki = require('lokijs') // database
+
+var db = new loki(config.database) //database object
+
+userManager.setDatabase(db)
+
+// var token = userManager.signToken({"test":false})
+// console.log(token)
+// var user = userManager.verifyToken(token);
+// console.log(user)
 
 const app = express()
 
@@ -44,7 +50,14 @@ wsManager.setSocketEvent("initialized", function(obj, socket){
     }
     // check if a token exists
     if (obj.data.token) {       
-       //todo 
+       token_user = userManager.verifyToken(token)
+       if (token_user) {
+        // current use
+        current_user = {
+            ...current_user,
+            ...token_user
+           }
+       }
     }
     // send the current user
     wsManager.sendToSocket(socket, "user_update", current_user)
