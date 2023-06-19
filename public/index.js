@@ -52,15 +52,24 @@ $('body').keydown(function (e) {
     } 
 });
 
+$(document).mouseup(function(){
+    var highlightedText = "";
+    if (window.getSelection) {
+        highlightedText = window.getSelection().toString();
+    } 
+    else if (document.selection && document.selection.type != "Control") {
+        highlightedText = document.selection.createRange().text;
+    }
+    if(highlightedText != ""){
+        // console.log(highlightedText);
+        navigator.clipboard.writeText(highlightedText)
+    }
+});
+
 // Focus on input when clicking on the page
 $('body').click(function() {
     $("#command").focus()
 })
-
-// Welcome message in the terminal
-$.get('messages/motd.txt', function(data) {
-    
-}, 'text')
 
 terminal.updateCurrentCommand() //Displays the terminal input text {user}@{domain}:{path}{prefix}
 terminal.initialize()
