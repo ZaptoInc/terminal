@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prod": "NODE_ENV=prod node back.js",
-    "dev": "NODE_ENV=dev nodemon --ignore public back.js"
+    "prod_windows":"set \"NODE_ENV=prod\" && node back.js",
+    "dev": "NODE_ENV=dev nodemon --ignore public back.js",
+    "dev_windows":"set \"NODE_ENV=dev\" && nodemon --ignore public back.js"
   },
   "repository": {
     "type": "git",
